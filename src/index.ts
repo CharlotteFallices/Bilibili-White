@@ -2,13 +2,7 @@
  * 脚本主体，负责提供脚本与模块间沟通的桥梁
  */
 (function () {
-    GM.xmlHttpRequest = GM_xmlhttpRequest;
-    GM.getValue = GM_getValue;
-    GM.setValue = GM_setValue;
-    GM.deleteValue = GM_deleteValue;
-    GM.listValues = GM_listValues;
     GM.getResourceText = GM_getResourceText;
-    GM.getResourceURL = GM_getResourceText;
     // @ts-ignore 忽略unsafeWindow错误
     const root: Window = unsafeWindow;
     const modules: Record<string, any> = {};
@@ -16,26 +10,13 @@
     /**
      * 初始化脚本设置数据
      */
-    const CONFIG: { [name: string]: any } = {};
-    const config: { [name: string]: any } = new Proxy(CONFIG, {
-        set: (_target, p: string, value) => {
-            CONFIG[p] = value;
-            GM.setValue<{ [name: string]: any }>("config", CONFIG);
-            return true;
-        },
-        get: (_target, p: string) => CONFIG[p]
-    })
-    Object.entries(GM.getValue<{ [name: string]: any }>("config", {})).forEach(k => Reflect.set(config, k[0], k[1]));
     class API {
         static API: Object;
-        static SETTING: any[] = [];
-        static MENU: Record<string, any> = {};
         GM = GM;
         module: (string | symbol)[] = [];
         Name: string = GM.info.script.name;
         Virsion: string = GM.info.script.version;
         Handler: string = [GM.info.scriptHandler, GM.info.version].join(" ");
-        config = config;
         /**
          * 获取模块内容
          * @param name 模块名字
@@ -53,42 +34,12 @@
             if (this.module.includes(name) && !force) return this.module;
             if (Reflect.has(modules, name)) {
                 !this.module.includes(name) && this.module.push(name);
-                new Function("API", "GM", "debug", "toast", "xhr", "config", "importModule", ...Object.keys(args), Reflect.get(modules, name))
-                    (API.API, GM, Reflect.get(this, "debug"), Reflect.get(this, "toast"), Reflect.get(this, "xhr"), config, this.importModule, ...Object.keys(args).reduce((s: object[], d) => {
+                new Function("API", "GM", ...Object.keys(args), Reflect.get(modules, name))
+                    (API.API, GM, ...Object.keys(args).reduce((s: object[], d) => {
                         s.push(args[d]);
                         return s;
                     }, []))
             }
-        }
-        static modifyConfig(obj: any) {
-            Reflect.has(obj, "value") && !Reflect.has(config, Reflect.get(obj, "key")) && Reflect.set(config, Reflect.get(obj, "key"), Reflect.get(obj, "value"));
-            Reflect.get(obj, "type") == "sort" && Reflect.has(obj, "list") && Reflect.get(obj, "list").forEach((d: any) => this.modifyConfig(d));
-        }
-        registerSetting(obj: any) {
-            API.SETTING.push(obj);
-            API.modifyConfig(obj);
-        }
-        registerMenu(obj: any) {
-            Reflect.set(API.MENU, Reflect.get(obj, "key"), obj);
-        }
-        changeSettingMode(mode: Record<string, boolean>) {
-            const keys = Object.keys(mode);
-            API.SETTING.forEach(d => {
-                Reflect.has(d, "key") && keys.includes(Reflect.get(d, "key")) && Reflect.set(d, "hidden", Reflect.get(mode, Reflect.get(d, "key")));
-            })
-        }
-        rewriteHTML(html: string) {
-            this.getModule("bug.json").forEach((d: string) => { root[d] && Reflect.set(root, d, undefined) })
-            document.open();
-            document.write(html);
-            document.close();
-            config.rewriteMethod == "异步" && this.importModule("vector.js"); // 重写后页面正常引导
-        }
-        initUi() {
-            root.self === root.top && (<any>this).runWhile(() => document.body, () => {
-                this.importModule("ui.js", { MENU: API.MENU, SETTING: API.SETTING });
-            });
-            new Promise(r => delete this.initUi);
         }
         constructor() {
             API.API = new Proxy(this, {
@@ -104,10 +55,7 @@
                     return true;
                 }
             })
-            new Function("API", Reflect.get(modules, "debug.js"))(API.API);
-            new Function("API", "debug", "config", Reflect.get(modules, "toast.js"))(API.API, Reflect.get(this, "debug"), config);
-            new Function("API", "GM", Reflect.get(modules, "xhr.js"))(API.API, GM);
-            this.importModule("rewrite.js");
+            this.importModule("replyList.js");
         }
     }
     new API();
@@ -155,13 +103,7 @@ declare namespace GM {
          */
         value: string
     }
-    let xmlHttpRequest: typeof GM_xmlhttpRequest;
-    let getValue: typeof GM_getValue;
-    let setValue: typeof GM_setValue;
-    let deleteValue: typeof GM_deleteValue;
-    let listValues: typeof GM_listValues;
     let getResourceText: typeof GM_getResourceText;
-    let getResourceURL: typeof GM_getResourceURL;
     const info: {
         downloadMode: string;
         isFirstPartyIsolation: boolean;
@@ -259,13 +201,7 @@ declare namespace GM {
         delete(details: Record<"name", string>): Promise<void>;
     }
 }
-declare function GM_xmlhttpRequest(details: GMxhrDetails): { abort: () => void };
 declare function GM_getResourceText(name: string): string;
-declare function GM_getResourceURL(name: string): string;
-declare function GM_getValue<T>(name: string, defaultValue?: T): T;
-declare function GM_setValue<T>(name: string, value: T): void;
-declare function GM_deleteValue(name: string): void;
-declare function GM_listValues(): string[];
 /**
  * 模块间的顶层变量，类似于`window`
  */
@@ -295,9 +231,4 @@ declare namespace API {
      * @returns json直接返回格式化对象，其他返回字符串
      */
     function getModule(name: string): any;
-    /**
-     * 重写网页框架
-     * @param html 网页模板
-     */
-    function rewriteHTML(html: string): void;
 }

@@ -13,7 +13,7 @@ class Build {
      * 构建入口
      */
     async output() {
-        await this.getResource()
+        // await this.getResource()
         const arr = await this.listPath();
         const files = await Promise.all(arr.reduce((s, d) => {
             s.push(fs.promises.readFile(d));
@@ -42,7 +42,7 @@ class Build {
                 return s;
             }, content);
             content = content + "// ==/UserScript==\r\n\r\n" + data.replace("/* 模块占位 */", modules);
-            fs.writeFile("./main.user.js", content, (err) => { if (err) throw err });
+            fs.writeFile("./replylist.user.js", content, (err) => { if (err) throw err });
         })
     }
     /**

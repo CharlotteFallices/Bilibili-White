@@ -1,23 +1,15 @@
 {
-    "name": "Bilibili 旧播放页",
+    "name": "Bilibili 翻页评论区",
     "namespace": "MotooriKashin",
-    "version": "6.1.6",
-    "description": "恢复Bilibili旧版页面，为了那些念旧的人。",
-    "author": "MotooriKashin，wly5556",
+    "version": "1.0.0",
+    "description": "恢复原来的翻页评论区，同时修复评论楼层号。",
+    "author": "MotooriKashin",
     "homepage": "https://github.com/MotooriKashin/Bilibili-Old",
     "supportURL": "https://github.com/MotooriKashin/Bilibili-Old/issues",
     "icon": "https://static.hdslb.com/images/favicon.ico",
     "match": "*://*.bilibili.com/*",
-    "connect": "*",
     "grant": [
-        "GM_xmlhttpRequest",
-        "GM_getResourceText",
-        "GM_getResourceURL",
-        "GM_getValue",
-        "GM_setValue",
-        "GM_deleteValue",
-        "GM_listValues",
-        "GM.cookie"
+        "GM_getResourceText"
     ],
     "run-at": "document-start",
     "license": "MIT"
