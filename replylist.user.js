@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Bilibili 翻页评论区
 // @namespace    MotooriKashin
-// @version      1.0.0
+// @version      1.0.1
 // @description  恢复原来的翻页评论区，同时修复评论楼层号。
 // @author       MotooriKashin
 // @homepage     https://github.com/MotooriKashin/Bilibili-Old
@@ -198,6 +198,13 @@
             new Function(GM.getResourceText("comment.min.js"))(); // 载入旧版脚本
             API.addElement("link", { href: "//static.hdslb.com/phoenix/dist/css/comment.min.css", rel: "stylesheet" }, document.head);
             API.addCss(API.getModule("comment.css"));
+            this.style();
+        }
+        async style() {
+            const arr = document.querySelectorAll("style");
+            arr.forEach((d, i) => {
+                d.outerHTML.includes("/*热门评论分割线*/") && arr[i].remove();
+            });
         }
     }
     new ReplyList().init();

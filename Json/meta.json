@@ -1,7 +1,7 @@
 {
     "name": "Bilibili 翻页评论区",
     "namespace": "MotooriKashin",
-    "version": "1.0.0",
+    "version": "1.0.1",
     "description": "恢复原来的翻页评论区，同时修复评论楼层号。",
     "author": "MotooriKashin",
     "homepage": "https://github.com/MotooriKashin/Bilibili-Old",
