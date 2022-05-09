@@ -1,4 +1,5 @@
 ![Windows 11](https://img.shields.io/badge/Microsoft_Windows_11-pass-green.svg?longCache=true) ![Chrome 100](https://img.shields.io/badge/Google_Chrome_100-pass-green.svg?longCache=true) ![Firefox 89](https://img.shields.io/badge/Mozilla_Firefox_89-pass-green.svg?longCache=true) ![Tampermonkey 4.14](https://img.shields.io/badge/Tampermonkey_4.14-pass-green.svg?longCache=true)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FCharlotteFallices%2FBilibili-White.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FCharlotteFallices%2FBilibili-White?ref=badge_shield)
 
 [Tampermonkey](https://www.tampermonkey.net/)（chrome）脚本，恢复旧版B站网页样式，尤其是那个小电视播放器。  
 
@@ -101,3 +102,7 @@
 --- 
 ### 开源许可
 [MIT License](https://opensource.org/licenses/MIT)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FCharlotteFallices%2FBilibili-White.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FCharlotteFallices%2FBilibili-White?ref=badge_large)
