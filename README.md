@@ -21,7 +21,7 @@ and integrated a range of critically acclaimed kits.
 - [toastr](https://github.com/CodeSeven/toastr/)
 - [bilibiliOldPlayer](https://github.com/indefined/UserScripts/tree/master/bilibiliOldPlayer)
 - [BiliPlus](https://www.biliplus.com/)
-- [JijiDownloader](https://www.jijidown.com/)
+- [Jiji Downloader](https://www.jijidown.com/)
 - [bili_BV](https://github.com/ShiSheng233/bili_BV)
 - [Bilibili Evolved](https://github.com/the1812/Bilibili-Evolved)
 - [Bilibili\_video\_download](https://github.com/Henryhaohao/Bilibili_video_download)
