@@ -13,13 +13,15 @@ Provide classic view for:
 - Video and bangumi player
 - Column reader
 
+and integrated a range of critically acclaimed kits.
+
 ## Thanks
 
 - [protobuf.js](https://github.com/protobufjs/protobuf.js)
 - [toastr](https://github.com/CodeSeven/toastr/)
 - [bilibiliOldPlayer](https://github.com/indefined/UserScripts/tree/master/bilibiliOldPlayer)
 - [BiliPlus](https://www.biliplus.com/)
-- [Bilibilijj](https://www.jijidown.com/)
+- [JijiDownloader](https://www.jijidown.com/)
 - [bili_BV](https://github.com/ShiSheng233/bili_BV)
 - [Bilibili Evolved](https://github.com/the1812/Bilibili-Evolved)
 - [Bilibili\_video\_download](https://github.com/Henryhaohao/Bilibili_video_download)
